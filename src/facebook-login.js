@@ -140,7 +140,7 @@ class FacebookLogin {
     const url = buildUrl(clientId, redirectUri, optionalParams)
 
     return RandomHttpUserAgent.get()
-      .then((userAgent) => login.bind(this)(url, userAgent))
+      .then((userAgent) => this._loginCircuitBreaker.exec(url, userAgent))
   }
 }
 

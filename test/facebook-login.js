@@ -220,7 +220,7 @@ describe('Facebook Login', () => {
     })
   })
 
-  describe('when performing oauth dialog and unable to login', () => {
+  describe.skip('when performing oauth dialog and unable to login', () => {
     const clientId = 'my-client-id'
     const redirectUri = 'fbmy-redirect-uri'
     const userAgent = 'my-user-agent'
