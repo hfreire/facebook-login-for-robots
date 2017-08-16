@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-describe('Facebook Login', () => {
+describe('Facebook Login for robots', () => {
   let subject
   let nightmare
   let RandomHttpUserAgent
@@ -60,7 +60,7 @@ describe('Facebook Login', () => {
       td.when(nightmare.then(), { ignoreExtraArgs: true }).thenDo((callback) => callback())
       td.replace('nightmare', () => nightmare)
 
-      const FacebookLogin = require('../src/facebook-login')
+      const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin(options)
     })
 
@@ -158,7 +158,7 @@ describe('Facebook Login', () => {
       td.when(nightmare.then(), { ignoreExtraArgs: true }).thenDo((callback) => callback())
       td.replace('nightmare', () => nightmare)
 
-      const FacebookLogin = require('../src/facebook-login')
+      const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin(options)
     })
 
@@ -245,7 +245,7 @@ describe('Facebook Login', () => {
       td.when(nightmare.then(), { ignoreExtraArgs: true }).thenResolve()
       td.replace('nightmare', () => nightmare)
 
-      const FacebookLogin = require('../src/facebook-login')
+      const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin(options)
     })
 
@@ -267,7 +267,7 @@ describe('Facebook Login', () => {
 
       td.replace('nightmare', () => nightmare)
 
-      const FacebookLogin = require('../src/facebook-login')
+      const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin()
     })
 

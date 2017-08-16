@@ -120,11 +120,11 @@ const defaultOptions = {
       webSecurity: false
     }
   },
-  retry: { max_tries: 3, interval: 15000, timeout: 40000, throw_original: true },
-  breaker: { timeout: 60000, threshold: 80, circuitDuration: 3 * 60 * 60 * 1000 }
+  retry: { max_tries: 3, interval: 15000, timeout: 80000, throw_original: true },
+  breaker: { timeout: 120000, threshold: 80, circuitDuration: 3 * 60 * 60 * 1000 }
 }
 
-class FacebookLogin {
+class FacebookLoginForRobots {
   constructor (options = {}) {
     this._options = _.defaultsDeep(options, defaultOptions)
 
@@ -144,4 +144,4 @@ class FacebookLogin {
   }
 }
 
-module.exports = FacebookLogin
+module.exports = FacebookLoginForRobots

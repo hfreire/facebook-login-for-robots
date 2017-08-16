@@ -5,4 +5,4 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-module.exports = require('./facebook-login')
+module.exports = require('./facebook-login-for-robots')
