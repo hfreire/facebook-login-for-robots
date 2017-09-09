@@ -129,7 +129,12 @@ class FacebookLoginForRobots {
     this._options = _.defaultsDeep(options, defaultOptions)
 
     this._breaker = new Brakes(this._options.breaker)
+
     this._loginCircuitBreaker = this._breaker.slaveCircuit((...params) => retry(() => login.bind(this)(...params), this._options.retry))
+  }
+
+  get circuitBreaker () {
+    return this._breaker
   }
 
   oauthDialog (clientId, redirectUri, optionalParams = {}) {
