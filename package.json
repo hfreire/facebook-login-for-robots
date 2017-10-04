@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/hfreire/facebook-login-for-robots#readme",
   "dependencies": {
-    "bluebird": "3.5.0",
+    "bluebird": "3.5.1",
     "bluebird-retry": "0.11.0",
     "brakes": "2.5.3",
     "lodash": "4.17.4",
