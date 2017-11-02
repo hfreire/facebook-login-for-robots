@@ -9,7 +9,7 @@
 [![Version](https://img.shields.io/npm/v/facebook-login-for-robots.svg)](https://www.npmjs.com/package/facebook-login-for-robots)
 [![Downloads](https://img.shields.io/npm/dt/facebook-login-for-robots.svg)](https://www.npmjs.com/package/facebook-login-for-robots) 
 
-Uses a headless browser to perform a Facebook Login ([OAuth dialog](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow)) in a Facebook App.
+> Uses a headless browser to perform a Facebook Login ([OAuth dialog](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow)) in a Facebook App.
 
 ### Features
 * Retries :shit: failing requests in temporary and unexpected system and :boom: network failures :white_check_mark:
