@@ -12,8 +12,14 @@ notifications:
     on_success: never
     on_failure: always
     on_pull_requests: false
+before_install:
+- npm install -g greenkeeper-lockfile@1
 before_script:
 - npm prune
+before_script:
+- greenkeeper-lockfile-update
+after_script:
+- greenkeeper-lockfile-upload
 after_success:
 - npm run coveralls
 - npm run semantic-release

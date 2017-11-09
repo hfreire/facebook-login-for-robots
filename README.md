@@ -28,16 +28,19 @@ Use Facebook Login to get an access token for a Facebook App
 ```javascript
 const FacebookLogin = require('facebook-login-for-robots')
 
-const email = 'my-facebook-email-address'
-const password = 'my-facebook-passsword'
-
-const facebookLogin = new FacebookLogin({ facebook: { email, password }})
+const facebookLogin = new FacebookLogin({
+  facebook: {
+    email: 'my-facebook-email-address', 
+    password: 'my-facebook-passsword'
+  }
+})
 
 const clientId = 'my-facebook-app-id'
 const redirectUri = 'my-facebook-app-redirect-uri'
 
 facebookLogin.oauthDialog(clientdId, redirectUri)
   .then(({ facebookAccessToken }) => console.log(facebookAccessToken))
+  .catch((error) => console.error(error))
 ```
 
 ### Used by

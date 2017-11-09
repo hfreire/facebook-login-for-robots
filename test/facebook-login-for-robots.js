@@ -11,9 +11,9 @@ describe('Facebook Login for robots', () => {
   let RandomHttpUserAgent
 
   before(() => {
-    RandomHttpUserAgent = td.object('get')
-
     nightmare = td.object([ 'useragent', 'on', 'goto', 'type', 'click', 'wait', 'end', 'then' ])
+
+    RandomHttpUserAgent = td.object('get')
   })
 
   afterEach(() => td.reset())
