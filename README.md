@@ -12,8 +12,7 @@
 > Uses a headless browser to perform a Facebook Login ([OAuth dialog](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow)) in a Facebook App.
 
 ### Features
-* Retries :shit: failing requests in temporary and unexpected system and :boom: network failures :white_check_mark:
-* Uses [Brakes](https://github.com/awolden/brakes) circuit breakers to :hand: fail-fast until it is safe to retry :white_check_mark: 
+* Uses [perseverance](https://github.com/hfreire/perseverance) to add :raised_hand: rate limit, :poop: retry and :traffic_light: circuit breaker behaviour to your requests :white_check_mark:  
 * Supports [Bluebird](https://github.com/petkaantonov/bluebird) :bird: promises :white_check_mark:
 
 ### How to install
