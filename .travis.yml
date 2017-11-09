@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-- 8.9.0
+  - 8.9.0
 cache:
   directories:
-  - node_modules
+    - node_modules
 notifications:
   email: false
   slack:
@@ -13,13 +13,12 @@ notifications:
     on_failure: always
     on_pull_requests: false
 before_install:
-- npm install -g greenkeeper-lockfile@1
+  - npm install -g greenkeeper-lockfile@1
 before_script:
-- npm prune
-before_script:
-- greenkeeper-lockfile-update
-after_script:
-- greenkeeper-lockfile-upload
+  - npm prune
+  - greenkeeper-lockfile-update
 after_success:
-- npm run coveralls
-- npm run semantic-release
+  - npm run coveralls
+  - npm run semantic-release
+after_script:
+  - greenkeeper-lockfile-upload
