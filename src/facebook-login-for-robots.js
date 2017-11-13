@@ -12,24 +12,22 @@ const Promise = require('bluebird')
 
 const Perseverance = require('perseverance')
 
-const Nightmare = require('nightmare')
-Nightmare.Promise = Promise
+const puppeteer = require('puppeteer')
 
 const RandomHttpUserAgent = require('random-http-useragent')
 
-const { join } = require('path')
 const querystring = require('querystring')
 
-const buildUrl = function (clientId, redirectUri, optionalParams) {
+const buildUrl = function (clientId, redirectUri, options) {
   const params = _.assign({
     client_id: clientId,
     redirect_uri: redirectUri
-  }, optionalParams)
+  }, options)
 
   return `${BASE_URL}?${querystring.stringify(params, null, null, { encodeURIComponent: (s) => s })}`
 }
 
-const doLogin = function (url, userAgent) {
+const doLogin = function (url, redirectUri, userAgent) {
   return Promise.try(() => {
     if (!url || !userAgent) {
       throw new Error('invalid arguments')
@@ -39,103 +37,88 @@ const doLogin = function (url, userAgent) {
       let facebookUserId
       let facebookAccessToken
 
-      let redirectUri
-      const match = url.match(/redirect_uri=(.*?)(&|$)/)
-      if (_.size(match) > 1) {
-        redirectUri = match[ 1 ]
-      }
+      return puppeteer.launch(_.get(this._options, 'puppeteer'))
+        .then((browser) => {
+          return new Promise((resolve, reject) => {
+            browser.newPage()
+              .then((page) => {
+                return page.setUserAgent(userAgent)
+                  .then(() => page.setRequestInterception(true))
+                  .then(() => page.on('request', (request) => {
+                    const { url } = request
 
-      const nightmare = Nightmare(this._options.nightmare)
+                    if (!facebookAccessToken && _.startsWith(redirectUri, 'http') && _.startsWith(url, redirectUri)) {
+                      facebookAccessToken = _.get(url.match(/#access_token=(.*?)(&|$)/), '[1]')
+                    }
 
-      return nightmare
-        .useragent(userAgent)
-        .on('page', function (type, url, method, response) {
-          if (type !== 'xhr-complete') {
-            return
-          }
+                    request.continue()
+                  }))
+                  .then(() => page.on('response', (response) => {
+                    if (!(_.includes(_.get(response, 'headers.content-type'), 'application/x-javascript') ||
+                        _.includes(_.get(response, 'headers.content-type'), 'text/javascript'))) {
+                      return
+                    }
 
-          if (url.path === '/pull' && !facebookUserId) {
-            const match = response.match(/"u":(.*),"ms"/)
-            if (_.size(match) > 1) {
-              facebookUserId = match[ 1 ]
-            }
+                    const { url } = response
 
-            return
-          }
+                    if (!facebookUserId && _.includes(url, 'www.facebook.com/ajax/haste-response')) {
+                      facebookUserId = _.get(url.match(/__user=([0-9]+)/), '[1]')
 
-          if (_.includes(url, 'www.facebook.com/ajax/haste-response') && !facebookUserId) {
-            const match = url.match(/__user=([0-9]+)/)
-            if (_.size(match) > 1) {
-              facebookUserId = match[ 1 ]
-            }
+                      return
+                    }
 
-            return
-          }
+                    if (!facebookAccessToken && _.includes(url, 'oauth/confirm?dpr')) {
+                      return response.text()
+                        .then((text) => {
+                          facebookAccessToken = _.get(text.match(/access_token=(.*?)(&|$)/), '[1]')
+                        })
+                    }
+                  }))
+                  .then(() => page.goto('https://facebook.com'))
+                  .then(() => page.type('input#email', _.get(this._options, 'facebook.email')))
+                  .then(() => page.type('input#pass', _.get(this._options, 'facebook.password')))
+                  .then(() => page.click('#loginbutton input'))
+                  .then(() => page.waitForNavigation())
+                  .then(() => page.goto(url))
+                  .then(() => {
+                    if (_.startsWith(redirectUri, 'fb')) {
+                      return page.waitForSelector('button._42ft._4jy0.layerConfirm._1flv._51_n.autofocus.uiOverlayButton._4jy5._4jy1.selected._51sy')
+                        .then(() => page.click('button._42ft._4jy0.layerConfirm._1flv._51_n.autofocus.uiOverlayButton._4jy5._4jy1.selected._51sy'))
+                    }
+                  })
+                  .then(() => {
+                    return page.waitForNavigation({ timeout: 2000, waitUntil: 'networkidle2' })
+                      .catch(() => {})
+                  })
+              })
+              .then(() => {
+                if (!facebookAccessToken || !facebookUserId) {
+                  throw new Error('unable to login')
+                }
 
-          if (_.includes(url, 'oauth/confirm?dpr') && !facebookAccessToken) {
-            const match = response.match(/access_token=(.*?)(&|$)/)
-            if (_.size(match) > 1) {
-              facebookAccessToken = match[ 1 ]
-            }
-          }
-        })
-        .on('did-get-redirect-request', function (event, oldUrl, newUrl) {
-          if (_.startsWith(newUrl, redirectUri) && !facebookAccessToken) {
-            const match = newUrl.match(/#access_token=(.*?)(&|$)/)
-            if (_.size(match) > 1) {
-              facebookAccessToken = match[ 1 ]
-            }
-          }
-        })
-        .goto('https://facebook.com')
-        .type('input#email', this._options.facebook.email)
-        .type('input#pass', this._options.facebook.password)
-        .click('#loginbutton input')
-        .wait(3000)
-        .goto(url)
-        .then(() => {
-          if (_.startsWith(redirectUri, 'fb')) {
-            return nightmare
-              .wait('button._42ft._4jy0.layerConfirm._1flv._51_n.autofocus.uiOverlayButton._4jy5._4jy1.selected._51sy')
-              .click('button._42ft._4jy0.layerConfirm._1flv._51_n.autofocus.uiOverlayButton._4jy5._4jy1.selected._51sy')
-          } else {
-            return nightmare
-          }
-        })
-        .then(() => {
-          return nightmare
-            .wait(10000)
-            .end()
-        })
-        .then(() => {
-          if (!facebookAccessToken || !facebookUserId) {
-            throw new Error('unable to login')
-          }
-
-          return { facebookAccessToken, facebookUserId }
+                resolve({ facebookAccessToken, facebookUserId })
+              })
+              .catch(reject)
+          })
+            .finally(() => browser.close())
         })
     })
 }
 
 const defaultOptions = {
   facebook: {},
-  nightmare: {
-    show: false,
-    partition: 'nopersist',
-    webPreferences: {
-      preload: join(__dirname, '/preload.js'),
-      webSecurity: false
-    }
+  puppeteer: {
+    headless: true
   },
   perseverance: {
     retry: { max_tries: 3, interval: 15000, timeout: 80000, throw_original: true },
     breaker: { timeout: 120000, threshold: 80, circuitDuration: 3 * 60 * 60 * 1000 },
     rate: {
       requests: 1,
-      period: 250,
-      queue: { concurrency: 1 }
+      period: 1000
     }
-  }
+  },
+  'random-http-useragent': {}
 }
 
 class FacebookLoginForRobots {
@@ -144,24 +127,24 @@ class FacebookLoginForRobots {
 
     this._perseverance = new Perseverance(_.get(this._options, 'perseverance'))
 
-    RandomHttpUserAgent.configure(_.get(this._options, 'facebook'))
+    RandomHttpUserAgent.configure(_.get(this._options, 'random-http-useragent'))
   }
 
   get circuitBreaker () {
     return this._perseverance.circuitBreaker
   }
 
-  oauthDialog (clientId, redirectUri, optionalParams = {}) {
+  oauthDialog (clientId, redirectUri, options = {}) {
     return Promise.try(() => {
       if (!clientId || !redirectUri) {
         throw new Error('invalid arguments')
       }
     })
       .then(() => {
-        const url = buildUrl(clientId, redirectUri, optionalParams)
+        const url = buildUrl(clientId, redirectUri, options)
 
         return RandomHttpUserAgent.get()
-          .then((userAgent) => this._perseverance.exec(() => doLogin.bind(this)(url, userAgent)))
+          .then((userAgent) => this._perseverance.exec(() => doLogin.bind(this)(url, redirectUri, userAgent)))
       })
   }
 }
