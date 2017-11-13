@@ -108,7 +108,7 @@ const doLogin = function (url, redirectUri, userAgent) {
 const defaultOptions = {
   facebook: {},
   puppeteer: {
-    headless: true
+    args: [ '--no-sandbox' ]
   },
   perseverance: {
     retry: { max_tries: 3, interval: 15000, timeout: 80000, throw_original: true },
