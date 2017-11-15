@@ -123,7 +123,7 @@ const defaultOptions = {
 
 class FacebookLoginForRobots {
   constructor (options = {}) {
-    this._options = _.defaultsDeep(options, defaultOptions)
+    this._options = _.defaultsDeep({}, options, defaultOptions)
 
     this._perseverance = new Perseverance(_.get(this._options, 'perseverance'))
 
