@@ -19,5 +19,6 @@ td.config({
 })
 
 global._ = _
+global.Promise = Promise
 global.should = chai.should()
 global.td = td
