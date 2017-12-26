@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "3.5.1",
     "lodash": "4.17.4",
-    "perseverance": "1.0.7",
+    "perseverance": "1.0.8",
     "puppeteer": "0.13.0",
     "random-http-useragent": "1.1.4"
   },
@@ -29,20 +29,20 @@
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
     "coveralls": "2.13.3",
-    "eslint": "4.12.1",
-    "eslint-config-hfreire": "1.0.10",
+    "eslint": "4.14.0",
+    "eslint-config-hfreire": "1.0.11",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-json": "1.2.0",
     "eslint-plugin-mocha": "4.11.0",
     "eslint-plugin-node": "5.2.1",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
-    "eslint-plugin-unicorn": "3.0.0",
+    "eslint-plugin-unicorn": "3.0.1",
     "istanbul": "0.4.5",
     "mocha": "4.0.1",
     "pre-git": "3.16.0",
-    "semantic-release": "9.1.0",
-    "testdouble": "3.2.6"
+    "semantic-release": "11.0.2",
+    "testdouble": "3.3.0"
   },
   "config": {
     "pre-git": {
