@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Hugo Freire <hugo@exec.sh>.
+ * Copyright (c) 2018, Hugo Freire <hugo@exec.sh>.
  *
  * This source code is licensed under the license found in the
  * LICENSE.md file in the root directory of this source tree.
@@ -15,7 +15,7 @@ describe('Facebook Login for robots', () => {
   let page
   let RandomHttpUserAgent
 
-  before(() => {
+  beforeAll(() => {
     Perseverance = td.constructor([ 'exec', 'circuitBreaker' ])
 
     puppeteer = td.object([ 'launch' ])
@@ -26,8 +26,6 @@ describe('Facebook Login for robots', () => {
 
     RandomHttpUserAgent = td.object('get')
   })
-
-  afterEach(() => td.reset())
 
   describe('when performing oauth dialog with a website redirect', () => {
     const facebookUserId = '1'
@@ -48,7 +46,7 @@ describe('Facebook Login for robots', () => {
       url: 'my-response-url'
     } ]
 
-    before(() => {
+    beforeAll(() => {
       request.continue = td.function()
     })
 
@@ -162,7 +160,7 @@ describe('Facebook Login for robots', () => {
     ]
     const text = `access_token=${facebookAccessToken}`
 
-    before(() => {
+    beforeAll(() => {
       responses[ 1 ].text = td.function()
     })
 
@@ -221,7 +219,7 @@ describe('Facebook Login for robots', () => {
     ]
     const text = `access_token=${facebookAccessToken}`
 
-    before(() => {
+    beforeAll(() => {
       responses[ 0 ].text = td.function()
     })
 
