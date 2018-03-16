@@ -41,7 +41,7 @@
     "eslint-plugin-unicorn": "4.0.2",
     "jest": "22.4.2",
     "pre-git": "3.17.0",
-    "semantic-release": "15.0.3",
+    "semantic-release": "15.1.2",
     "testdouble": "3.5.2",
     "testdouble-jest": "1.0.1"
   },
