@@ -66,12 +66,13 @@
   "scripts": {
     "eslint": "node_modules/.bin/eslint . --ext .json --ext .js",
     "jest": "./node_modules/.bin/jest",
+    "babel": "mkdir -p lib && ./node_modules/.bin/babel src/ -d lib",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "semantic-release": "./node_modules/.bin/semantic-release",
     "clean": "rm -rf lib coverage",
     "lint": "npm run eslint",
     "test": "npm run clean && npm run lint && npm run jest",
-    "compile": "npm run clean && mkdir -p lib && ./node_modules/.bin/babel src/ -d lib",
+    "compile": "npm run clean && npm run babel",
     "commit": "./node_modules/.bin/commit-wizard",
     "prepublish": "npm run compile"
   }
