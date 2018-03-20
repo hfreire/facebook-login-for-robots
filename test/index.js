@@ -9,19 +9,15 @@ describe('Module', () => {
   let subject
   let FacebookLoginForRobots
 
-  beforeAll(() => {
-    FacebookLoginForRobots = td.constructor()
-  })
-
   describe('when loading', () => {
     beforeEach(() => {
-      td.replace('../src/facebook-login-for-robots', FacebookLoginForRobots)
+      FacebookLoginForRobots = td.replace('../src/facebook-login-for-robots')
 
       subject = require('../src/index')
     })
 
     it('should export facebook login for robots', () => {
-      subject.should.be.equal(FacebookLoginForRobots)
+      expect(subject).toBe(FacebookLoginForRobots)
     })
   })
 })

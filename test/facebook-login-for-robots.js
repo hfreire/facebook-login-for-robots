@@ -10,21 +10,15 @@
 describe('Facebook Login for robots', () => {
   let subject
   let Perseverance
+  let RandomHttpUserAgent
   let puppeteer
   let browser
   let page
-  let RandomHttpUserAgent
 
   beforeAll(() => {
-    Perseverance = td.constructor([ 'exec', 'circuitBreaker' ])
-
-    puppeteer = td.object([ 'launch' ])
-
     browser = td.object([ 'newPage', 'close' ])
 
     page = td.object([ 'setUserAgent', 'setRequestInterception', 'on', 'goto', 'type', 'click', 'waitForNavigation', 'waitForSelector' ])
-
-    RandomHttpUserAgent = td.object('get')
   })
 
   describe('when performing oauth dialog with a website redirect', () => {
@@ -47,18 +41,22 @@ describe('Facebook Login for robots', () => {
     } ]
 
     beforeAll(() => {
+      browser = td.object([ 'newPage', 'close' ])
+      page = td.object([ 'setUserAgent', 'setRequestInterception', 'on', 'goto', 'type', 'click', 'waitForNavigation', 'waitForSelector' ])
+
       request.continue = td.function()
     })
 
     beforeEach(() => {
       td.when(request.continue()).thenResolve()
 
+      Perseverance = td.replace('perseverance')
       td.when(Perseverance.prototype.exec(), { ignoreExtraArgs: true }).thenDo((callback) => callback())
-      td.replace('perseverance', Perseverance)
 
+      RandomHttpUserAgent = td.replace('random-http-useragent')
       td.when(RandomHttpUserAgent.get()).thenResolve(userAgent)
-      td.replace('random-http-useragent', RandomHttpUserAgent)
 
+      puppeteer = td.replace('puppeteer')
       td.when(puppeteer.launch(), { ignoreExtraArgs: true }).thenResolve(browser)
       td.when(browser.newPage()).thenResolve(page)
       td.when(browser.close()).thenResolve()
@@ -74,7 +72,6 @@ describe('Facebook Login for robots', () => {
       td.when(page.click(), { ignoreExtraArgs: true }).thenResolve()
       td.when(page.waitForNavigation(), { ignoreExtraArgs: true }).thenResolve()
       td.when(page.waitForSelector(), { ignoreExtraArgs: true }).thenResolve()
-      td.replace('puppeteer', puppeteer)
 
       const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin(options)
@@ -132,8 +129,8 @@ describe('Facebook Login for robots', () => {
     it('should resolve with facebook access token and user id', () => {
       return subject.oauthDialog(clientId, redirectUri)
         .then((result) => {
-          result.should.have.property('facebookAccessToken', facebookAccessToken)
-          result.should.have.property('facebookUserId', facebookUserId)
+          expect(result).toHaveProperty('facebookAccessToken', facebookAccessToken)
+          expect(result).toHaveProperty('facebookUserId', facebookUserId)
         })
     })
   })
@@ -167,12 +164,13 @@ describe('Facebook Login for robots', () => {
     beforeEach(() => {
       td.when(responses[ 1 ].text()).thenResolve(text)
 
+      Perseverance = td.replace('perseverance')
       td.when(Perseverance.prototype.exec(), { ignoreExtraArgs: true }).thenDo((callback) => callback())
-      td.replace('perseverance', Perseverance)
 
+      RandomHttpUserAgent = td.replace('random-http-useragent')
       td.when(RandomHttpUserAgent.get()).thenResolve(userAgent)
-      td.replace('random-http-useragent', RandomHttpUserAgent)
 
+      puppeteer = td.replace('puppeteer')
       td.when(puppeteer.launch(), { ignoreExtraArgs: true }).thenResolve(browser)
       td.when(browser.newPage()).thenResolve(page)
       td.when(browser.close()).thenResolve()
@@ -188,7 +186,6 @@ describe('Facebook Login for robots', () => {
       td.when(page.click(), { ignoreExtraArgs: true }).thenResolve()
       td.when(page.waitForNavigation(), { ignoreExtraArgs: true }).thenResolve()
       td.when(page.waitForSelector(), { ignoreExtraArgs: true }).thenResolve()
-      td.replace('puppeteer', puppeteer)
 
       const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin(options)
@@ -226,12 +223,13 @@ describe('Facebook Login for robots', () => {
     beforeEach(() => {
       td.when(responses[ 0 ].text()).thenResolve(text)
 
+      Perseverance = td.replace('perseverance')
       td.when(Perseverance.prototype.exec(), { ignoreExtraArgs: true }).thenDo((callback) => callback())
-      td.replace('perseverance', Perseverance)
 
+      RandomHttpUserAgent = td.replace('random-http-useragent')
       td.when(RandomHttpUserAgent.get()).thenResolve(userAgent)
-      td.replace('random-http-useragent', RandomHttpUserAgent)
 
+      puppeteer = td.replace('puppeteer')
       td.when(puppeteer.launch(), { ignoreExtraArgs: true }).thenResolve(browser)
       td.when(browser.newPage()).thenResolve(page)
       td.when(browser.close()).thenResolve()
@@ -247,7 +245,6 @@ describe('Facebook Login for robots', () => {
       td.when(page.click(), { ignoreExtraArgs: true }).thenResolve()
       td.when(page.waitForNavigation(), { ignoreExtraArgs: true }).thenResolve()
       td.when(page.waitForSelector(), { ignoreExtraArgs: true }).thenResolve()
-      td.replace('puppeteer', puppeteer)
 
       const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin(options)
@@ -256,8 +253,8 @@ describe('Facebook Login for robots', () => {
     it('should reject with error message unable to login', () => {
       return subject.oauthDialog(clientId, redirectUri)
         .catch((error) => {
-          error.should.be.instanceOf(Error)
-          error.should.have.property('message', 'unable to login')
+          expect(error).toBeInstanceOf(Error)
+          expect(error).toHaveProperty('message', 'unable to login')
         })
     })
   })
@@ -267,12 +264,12 @@ describe('Facebook Login for robots', () => {
     const redirectUri = undefined
 
     beforeEach(() => {
+      Perseverance = td.replace('perseverance')
       td.when(Perseverance.prototype.exec(), { ignoreExtraArgs: true }).thenDo((callback) => callback())
-      td.replace('perseverance', Perseverance)
 
-      td.replace('random-http-useragent', RandomHttpUserAgent)
+      td.replace('random-http-useragent')
 
-      td.replace('puppeteer', puppeteer)
+      td.replace('puppeteer')
 
       const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin()
@@ -281,23 +278,23 @@ describe('Facebook Login for robots', () => {
     it('should reject with invalid arguments', () => {
       return subject.oauthDialog(clientId, redirectUri)
         .catch((error) => {
-          error.should.be.instanceOf(Error)
-          error.message.should.be.equal('invalid arguments')
+          expect(error).toBeInstanceOf(Error)
+          expect(error.message).toBe('invalid arguments')
         })
     })
   })
 
   describe('when getting circuit breaker', () => {
     beforeEach(() => {
-      td.replace('perseverance', Perseverance)
+      Perseverance = td.replace('perseverance')
+      Perseverance.prototype.circuitBreaker = td.object()
 
       const FacebookLogin = require('../src/facebook-login-for-robots')
       subject = new FacebookLogin()
-      subject.circuitBreaker()
     })
 
     it('should return a brakes instance', () => {
-      td.verify(Perseverance.prototype.circuitBreaker(), { times: 1 })
+      expect(subject.circuitBreaker).toBe(Perseverance.prototype.circuitBreaker)
     })
   })
 })
