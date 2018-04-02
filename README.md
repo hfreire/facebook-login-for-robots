@@ -28,13 +28,16 @@ const facebookLogin = new FacebookLogin({
   facebook: {
     email: 'my-facebook-email-address', 
     password: 'my-facebook-passsword'
-  }
+  },
+  // puppeteer: {
+  //   headless: false // helpful for troubleshooting
+  // }
 })
 
 const clientId = 'my-facebook-app-id'
 const redirectUri = 'my-facebook-app-redirect-uri'
 
-facebookLogin.oauthDialog(clientdId, redirectUri)
+facebookLogin.oauthDialog(clientId, redirectUri)
   .then(({ facebookAccessToken }) => console.log(facebookAccessToken))
   .catch((error) => console.error(error))
 ```
