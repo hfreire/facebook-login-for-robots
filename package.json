@@ -42,7 +42,7 @@
     "pre-git": "3.17.0",
     "semantic-release": "15.1.5",
     "testdouble": "3.7.0",
-    "testdouble-jest": "1.0.1"
+    "testdouble-jest": "2.0.0"
   },
   "config": {
     "pre-git": {
