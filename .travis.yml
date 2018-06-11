@@ -14,6 +14,8 @@ notifications:
     on_pull_requests: false
 install:
   - npm install
+install:
+  - npm install
 before_install:
   - npm install -g greenkeeper-lockfile@1
 before_script:
