@@ -11,7 +11,7 @@ git clone https://github.com/my-github-username/facebook-login-for-robots
 
 Change current directory
 ```
-cd get-me-date
+cd facebook-login-for-robots
 ```
 
 Install NPM dependencies
