@@ -76,6 +76,5 @@
     "compile": "npm run clean && npm run babel",
     "commit": "./node_modules/.bin/commit-wizard",
     "prepublish": "npm run compile"
-  },
-  "release": {}
+  }
 }
