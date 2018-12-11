@@ -40,7 +40,7 @@
     "jest": "22.4.2",
     "npm-merge-driver": "2.3.5",
     "pre-git": "3.17.1",
-    "semantic-release": "15.12.4",
+    "semantic-release": "15.12.5",
     "testdouble": "3.9.1",
     "testdouble-jest": "2.0.0"
   },
