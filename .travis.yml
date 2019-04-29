@@ -1,28 +1,26 @@
 language: node_js
 node_js:
-  - 8.9.0
+- 8.9.0
 cache:
   directories:
-    - node_modules
+  - node_modules
 notifications:
   email: false
   slack:
     rooms:
-      secure: nnkzVM4iL6nCILxLtMivzmRbN2jPC8vodXBZhYUGW0DL3+dgbgN9HxxRarAjJX4ExagJeVDuTe4FbExPJ9qMVG0HitzRg+fHgH8m/sei5elKM2idhgHUYMswv8M91STgbdYPGeGvabgUmdIw439oKVL9iUrs+QO6GReM1TRXMWeM799TV19l4Zt0AbtWh16F+X8/Sp6p0EdmBKXRlaTNfWsQOl9fyvhCweZFpA6+wjbypxafuiGiBGXIf2RT9cCTyJxG6Qx+7UEqQvjA6+Q76cbn4xa+nV34e8Whl+2JDHKGVipwen9w+3H4HabSum17Si4FTxsNyuA+Q+3pbEYcYnnRefvk2tjFxFFa8IKbBsDIZL6pKBBF24M+Jry8rcIjgvpxSIPVfmjJiOMKHXx6NEJ8F/7091i6ZjHAABhH5fVjJtUu3gV7HpOK3/M0MPi2/2/ND+HBKA4xk4lsDVmX4+lESOnaKqK4J17AhmkCQ761CWIP/x+8EV0KNIk1zLPX9kl7Le/mvAPLvWsQBffDlZ1kuVRgZADtfHoRA6PvZPIz6EFS2JSTl5nqkLXaspjYf8eyTqrs823x4LwtJ8njZ9/QRThz7qovkjbW2XjaJvh7CKnZOPVnuvowrgsL9JD5rysrqwSNkgFoCQxSDjmKv2tfN73flML+BS+4/29eRRI=
+      secure: xx8tx639PybpT7EdqA2YNWmYNUk9Ub6QE1her3HV8j9Bzvoc+EjodhxHC9w25E3+X7CYJ12KFEBQd/JXINAthADylawGSo2uRnk4+fTqgk9rscQA9/JNR+IM6IZ7RWYJLJWPxkEagqAAUEFFXRCg3+bv6x1wlNQ5yrh6Qh2QknUMZu4sFuUGWvq+0QUEhf25+D/24bqUT15aDgmet23ri8u3hjWtUlpSI7JIw6k4uEhr9EHioI0ni6Pz4lJQk0WnNyLWs8BzBWgdmW8J5VtAtTubCGMliMBEN8RVpcRVsSsTpwWNrGb4E+UFaNGHbGVNrJC/noHuuoQscYlu6gOq+ZTbvahInXtzR7cxHNn6amUOCGOlEBf7FOLXR/xbwnqd7GJfR/YafJM7/lYphbWmbfkR6i7lmdjVUtEIQZ9lnNaDb6Ywagv92c10OcfJ3pIqWvktFKC/KtPzXJ7ODmE0X9VXdI24AFU7lu3OW5KlBTKoQIW0BvQmnfsNMLErFmOj9BfcaZZDoU6vgF50pUrqVzJA+ZE1yYPYlOAbTamTxrLIObVBoA1tMZ7PrrCTRWUsN4lwV3vC8L7BWmseLz67eaK3FKQn1AdVZm7cYvqwSijyEeb0jTUc4lgRr7IrTTS3d98ill4GFmSVphkgZnHeT2z4solUMtUWPfoq/Gr32oQ=
     on_success: never
     on_failure: always
     on_pull_requests: false
 install:
-  - npm install
-install:
-  - npm install
+- npm install
 before_install:
-  - npm install -g greenkeeper-lockfile@1
+- npm install -g greenkeeper-lockfile@1
 before_script:
-  - npm prune
-  - greenkeeper-lockfile-update
+- npm prune
+- greenkeeper-lockfile-update
 after_success:
-  - npm run coveralls
-  - npm run semantic-release
+- npm run coveralls
+- npm run semantic-release
 after_script:
-  - greenkeeper-lockfile-upload
+- greenkeeper-lockfile-upload
