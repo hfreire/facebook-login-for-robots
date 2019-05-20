@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "3.5.4",
     "lodash": "4.17.11",
-    "perseverance": "1.0.19",
+    "perseverance": "1.0.20",
     "puppeteer": "1.16.0",
     "random-http-useragent": "1.1.5"
   },
