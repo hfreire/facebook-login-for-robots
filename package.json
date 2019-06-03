@@ -21,7 +21,7 @@
     "lodash": "4.17.11",
     "perseverance": "1.0.31",
     "puppeteer": "1.17.0",
-    "random-http-useragent": "1.1.8"
+    "random-http-useragent": "1.1.11"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
