@@ -41,7 +41,7 @@
     "npm-merge-driver": "2.3.5",
     "pre-git": "3.17.1",
     "semantic-release": "15.13.18",
-    "testdouble": "3.12.0",
+    "testdouble": "3.12.1",
     "testdouble-jest": "2.0.0"
   },
   "config": {
