@@ -20,7 +20,7 @@
     "bluebird": "3.5.5",
     "lodash": "4.17.15",
     "perseverance": "1.0.33",
-    "puppeteer": "1.18.1",
+    "puppeteer": "1.19.0",
     "random-http-useragent": "1.1.17"
   },
   "devDependencies": {
