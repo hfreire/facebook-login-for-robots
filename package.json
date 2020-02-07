@@ -30,7 +30,7 @@
     "eslint": "6.5.1",
     "eslint-config-hfreire": "1.1.3",
     "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jest": "23.6.0",
+    "eslint-plugin-jest": "23.7.0",
     "eslint-plugin-json": "2.0.1",
     "eslint-plugin-mocha": "6.2.2",
     "eslint-plugin-node": "11.0.0",
