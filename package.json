@@ -28,7 +28,7 @@
     "babel-preset-env": "1.7.0",
     "coveralls": "3.0.11",
     "eslint": "6.8.0",
-    "eslint-config-hfreire": "3.0.9",
+    "eslint-config-hfreire": "2.0.7",
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-jest": "23.8.2",
     "eslint-plugin-json": "2.1.1",
@@ -42,7 +42,8 @@
     "pre-git": "3.17.1",
     "semantic-release": "17.0.4",
     "testdouble": "3.13.1",
-    "testdouble-jest": "2.0.0"
+    "testdouble-jest": "2.0.0",
+    "snyk": "1.305.0"
   },
   "config": {
     "pre-git": {
@@ -64,14 +65,18 @@
       "src/**/*.js"
     ]
   },
+  "snyk": true,
   "scripts": {
-    "eslint": "node_modules/.bin/eslint . --ext .json --ext .js",
+    "eslint": "./node_modules/.bin/eslint --ext .json --ext .js .",
     "jest": "./node_modules/.bin/jest",
+    "snyk:test": "./node_modules/.bin/snyk test",
+    "snyk:protect": "./node_modules/.bin/snyk protect",
     "babel": "mkdir -p lib && ./node_modules/.bin/babel src/ -d lib",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "semantic-release": "./node_modules/.bin/semantic-release",
     "clean": "rm -rf lib coverage",
     "lint": "npm run eslint",
+    "prepare": "npm run snyk:protect",
     "test": "npm run clean && npm run lint && npm run jest",
     "compile": "npm run clean && npm run babel",
     "commit": "./node_modules/.bin/commit-wizard",

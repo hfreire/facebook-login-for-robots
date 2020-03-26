@@ -1,15 +1,16 @@
 # Facebook Login for 🤖 robots
 
-[![Build Status](https://travis-ci.org/hfreire/facebook-login-for-robots.svg?branch=master)](https://travis-ci.org/hfreire/facebook-login-for-robots)
+[![](https://github.com/hfreire/facebook-login-for-robots/workflows/ci/badge.svg)](https://github.com/hfreire/facebook-login-for-robots/actions?workflow=ci)
 [![Coverage Status](https://coveralls.io/repos/github/hfreire/facebook-login-for-robots/badge.svg?branch=master)](https://coveralls.io/github/hfreire/facebook-login-for-robots?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/hfreire/facebook-login-for-robots/badge.svg)](https://snyk.io/test/github/hfreire/facebook-login-for-robots)
 [![](https://img.shields.io/github/release/hfreire/facebook-login-for-robots.svg)](https://github.com/hfreire/facebook-login-for-robots/releases)
 [![Version](https://img.shields.io/npm/v/facebook-login-for-robots.svg)](https://www.npmjs.com/package/facebook-login-for-robots)
-[![Downloads](https://img.shields.io/npm/dt/facebook-login-for-robots.svg)](https://www.npmjs.com/package/facebook-login-for-robots) 
+[![Downloads](https://img.shields.io/npm/dt/facebook-login-for-robots.svg)](https://www.npmjs.com/package/facebook-login-for-robots)
 
 > Uses a headless browser to perform a Facebook Login ([OAuth dialog](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow)) in a Facebook App.
 
 ### Features
-* Uses [Perseverance](https://github.com/hfreire/perseverance) to add :raised_hand: rate limit, :poop: retry and :traffic_light: circuit breaker behaviour to your requests :white_check_mark:  
+* Uses [Perseverance](https://github.com/hfreire/perseverance) to add :raised_hand: rate limit, :poop: retry and :traffic_light: circuit breaker behaviour to your requests :white_check_mark:
 * Supports [Bluebird](https://github.com/petkaantonov/bluebird) :bird: promises :white_check_mark:
 
 ### How to install
@@ -26,7 +27,7 @@ const FacebookLogin = require('facebook-login-for-robots')
 
 const facebookLogin = new FacebookLogin({
   facebook: {
-    email: 'my-facebook-email-address', 
+    email: 'my-facebook-email-address',
     password: 'my-facebook-passsword'
   },
   // puppeteer: {
@@ -43,7 +44,7 @@ facebookLogin.oauthDialog(clientId, redirectUri)
 ```
 
 ### How to contribute
-You can contribute either with code (e.g., new features, bug fixes and documentation) or by [donating 5 EUR](https://paypal.me/hfreire/5). You can read the [contributing guidelines](CONTRIBUTING.md) for instructions on how to contribute with code. 
+You can contribute either with code (e.g., new features, bug fixes and documentation) or by [donating 5 EUR](https://paypal.me/hfreire/5). You can read the [contributing guidelines](CONTRIBUTING.md) for instructions on how to contribute with code.
 
 All donation proceedings will go to the [Sverige för UNHCR](https://sverigeforunhcr.se), a swedish partner of the [UNHCR - The UN Refugee Agency](http://www.unhcr.org), a global organisation dedicated to saving lives, protecting rights and building a better future for refugees, forcibly displaced communities and stateless people.
 
