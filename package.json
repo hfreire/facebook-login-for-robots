@@ -21,7 +21,8 @@
     "lodash": "4.17.15",
     "perseverance": "1.0.38",
     "puppeteer": "3.0.2",
-    "random-http-useragent": "1.1.23"
+    "random-http-useragent": "1.1.23",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -42,8 +43,7 @@
     "pre-git": "3.17.1",
     "semantic-release": "17.0.7",
     "testdouble": "3.13.1",
-    "testdouble-jest": "2.0.0",
-    "snyk": "1.316.1"
+    "testdouble-jest": "2.0.0"
   },
   "config": {
     "pre-git": {
@@ -76,10 +76,11 @@
     "semantic-release": "./node_modules/.bin/semantic-release",
     "clean": "rm -rf lib coverage",
     "lint": "npm run eslint",
-    "prepare": "npm run snyk:protect",
+    "prepare": "npm run snyk-protect && npm run snyk:protect",
     "test": "npm run clean && npm run lint && npm run jest",
     "compile": "npm run clean && npm run babel",
     "commit": "./node_modules/.bin/commit-wizard",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile",
+    "snyk-protect": "snyk protect"
   }
 }
