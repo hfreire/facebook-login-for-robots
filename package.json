@@ -18,7 +18,7 @@
   "homepage": "https://github.com/hfreire/facebook-login-for-robots#readme",
   "dependencies": {
     "bluebird": "3.7.2",
-    "lodash": "4.17.19",
+    "lodash": "4.17.20",
     "perseverance": "1.0.48",
     "puppeteer": "5.2.1",
     "random-http-useragent": "1.1.27"
